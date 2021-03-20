@@ -1,0 +1,1 @@
+Data class mappers using reflection are about 10 times slower than using extension functions and directly mapping them by hand.
