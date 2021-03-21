@@ -17,6 +17,7 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:4.4.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.31")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
+    implementation("org.mapstruct:mapstruct:1.4.2.Final")
 
 }
 
