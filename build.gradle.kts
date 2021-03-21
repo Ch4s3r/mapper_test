@@ -1,7 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     kotlin("jvm") version "1.4.31"
+    kotlin("kapt") version "1.4.31"
     application
 }
 
@@ -18,7 +20,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.31")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
     implementation("org.mapstruct:mapstruct:1.4.2.Final")
-
+    kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
 }
 
 tasks.withType<Test> {

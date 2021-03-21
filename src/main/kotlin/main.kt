@@ -1,3 +1,7 @@
+import org.mapstruct.Mapper
+import org.mapstruct.Mapping
+import org.mapstruct.Mappings
+import org.mapstruct.factory.Mappers
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
 
@@ -29,23 +33,6 @@ fun User.toDTO() = UserDTO(
     age = age
 )
 
-val USER = User(
-    firstName = "Java",
-    lastName = "Duke",
-    street = "Javastreet",
-    houseNumber = "42",
-    phone = "1234567",
-    age = 30,
-    password = "s3cr37"
-)
-
-val USER_DTO = UserDTO(
-    name = "Java Duke",
-    address = "Javastreet 42",
-    telephone = "1234567",
-    age = 30
-)
-
 fun User.toDTOWithReflection(): UserDTO {
     val propertiesByName = User::class.memberProperties.associateBy { it.name }
     return UserDTO::class.primaryConstructor!!.callBy(
@@ -57,4 +44,19 @@ fun User.toDTOWithReflection(): UserDTO {
                 else -> propertiesByName[parameter.name]?.get(this)
             }
         })
+}
+
+@Mapper
+interface UserMapper {
+
+    companion object {
+        val INSTANCE = Mappers.getMapper(UserMapper::class.java)
+    }
+
+    @Mappings(
+        Mapping(target = "name", expression = "java(user.getFirstName() + \" \" + user.getLastName())"),
+        Mapping(target = "address", expression = "java(user.getStreet() + \" \" + user.getHouseNumber())"),
+        Mapping(target = "telephone", source = "phone")
+    )
+    fun toDTOWithMapper(user: User): UserDTO
 }
