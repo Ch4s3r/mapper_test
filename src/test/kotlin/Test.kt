@@ -42,7 +42,7 @@ class Test : FreeSpec({
     "mapstruct benchmark" {
         println(
             measureTimeMillis {
-                UserMapper.INSTANCE.toDTOWithMapper(USER)
+                USER_LIST.map { UserMapper.INSTANCE.toDTOWithMapper(USER) }
             }
         )
     }
